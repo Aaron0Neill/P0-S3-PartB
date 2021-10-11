@@ -65,7 +65,6 @@ public class Ship : MonoBehaviour
             return;
         }
 
-<<<<<<< HEAD
         if(Input.GetKey(KeyCode.Space) && canShoot &&!reloading)
         {
             if (!chargeUp)
@@ -88,12 +87,6 @@ public class Ship : MonoBehaviour
                 TripleShootLaser();
             }
                 chargeUp = false;
-=======
-        if (Input.GetKey(KeyCode.Space) && canShoot && !reloading)
-        {
-            ShootLaser();
-            print("fire key pressed");
->>>>>>> 5081863558daf7cda78286c5b234ad01f8983077
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
