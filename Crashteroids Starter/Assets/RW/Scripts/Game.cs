@@ -71,6 +71,7 @@ public class Game : MonoBehaviour
         instance.isGameOver = true;
         instance.spawner.StopSpawning();
         instance.shipModel.GetComponent<Ship>().Explode();
+        instance.shipModel.GetComponent<Ship>().shotsFired = 0;
         instance.gameOverText.enabled = true;
     }
 
