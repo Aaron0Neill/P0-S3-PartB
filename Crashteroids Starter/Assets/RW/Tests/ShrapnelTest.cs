@@ -28,9 +28,9 @@ public class LaserTest
     {
         GameObject asteroid = game.GetSpawner().SpawnAsteroid();
         asteroid.transform.position = Vector3.zero;
-        GameObject shrapnel = game.GetShrapnel();
-        shrapnel.transform.position = Vector3.zero;
-        yield return new WaitForSeconds(0.1f);
+        ShrapnelSpawner shrapnel = game.GetShrapnelSpawner();
+        shrapnel.SpawnShrapnel(Vector3.zero);
+        yield return new WaitForSeconds(0.2f);
         UnityEngine.Assertions.Assert.IsNull(asteroid);
     }
 }

@@ -51,7 +51,7 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Spawner spawner;
     [SerializeField]
-    private GameObject shrapnel;
+    private ShrapnelSpawner shrapnel;
 
     private static Game instance;
 
@@ -106,7 +106,7 @@ public class Game : MonoBehaviour
         return spawner.GetComponent<Spawner>();
     }
 
-    public GameObject GetShrapnel()
+    public ShrapnelSpawner GetShrapnelSpawner()
     {
         return shrapnel;
     }
