@@ -36,6 +36,8 @@ public class Laser : MonoBehaviour
 {
     [SerializeField]
     private Spawner spawner;
+    [SerializeField]
+    private ShrapnelSpawner _shrapSpawner;
 
 	void Update ()
     {
@@ -50,6 +52,7 @@ public class Laser : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Asteroid>() != null)
         {
+            _shrapSpawner.SpawnOnDestroy(this.transform.position);
             Game.AsteroidDestroyed();
             Destroy(gameObject);
             spawner.asteroids.Remove(collision.gameObject);
