@@ -23,11 +23,6 @@ public class TestScriptReload
         Object.Destroy(game.gameObject);
     }
 
-    // Reload after 10 bullets
-    // Key is ignored
-    // cannot fire 3 bullets if 8 or more shots fired
-    // bullets reset on gameover
-
     [UnityTest]
     public IEnumerator resetShotsFiredAfterTen()
     {
@@ -50,15 +45,22 @@ public class TestScriptReload
         Assert.AreEqual(game.GetShip().shotsFired, 0);
     }
 
-    //[UnityTest]
-    //public IEnumerator reloadtimeTakesTwoSeconds()
-    //{
-    //    game.GetShip().ReloadLaser();
-    //    yield return new WaitForSeconds(1.9f);
-    //    Assert.AreEqual(game.GetShip().reloading, false);
-    //    game.GetShip().ReloadLaser();
-    //    yield return new WaitForSeconds(2.0f);
-    //    Assert.AreEqual(game.GetShip().reloading, false);
-    //}
+    [UnityTest]
+    public IEnumerator reloadtimeTakesTwoSeconds()
+    {
+        game.GetShip().ReloadLaser();
+        yield return new WaitForSeconds(0.1f);
+        Assert.AreEqual(game.GetShip().reloading, false);
+    }
+
+    // test can you fire triple shot at 8 bullets
+    public IEnumerator needThreeBulletsFortripleShot()
+    {
+        game.GetShip().shotsFired = 7;
+        // force triple shot here
+        // Assert canShoot is false and triple shot does not fire
+        //game.GetShip().ReloadLaser();
+        yield return new WaitForSeconds(0.2f);
+    }
 
 }
