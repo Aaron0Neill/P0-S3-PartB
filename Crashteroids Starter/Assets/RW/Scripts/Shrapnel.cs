@@ -28,4 +28,9 @@ public class Shrapnel : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public float getHeading()
+    {
+        return _heading;
+    }
 }

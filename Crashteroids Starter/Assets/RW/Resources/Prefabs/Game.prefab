@@ -5980,6 +5980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 114967116146624472}
+  _shrapSpawner: {fileID: 204954388}
 --- !u!54 &54607553103520588
 Rigidbody:
   m_ObjectHideFlags: 0
