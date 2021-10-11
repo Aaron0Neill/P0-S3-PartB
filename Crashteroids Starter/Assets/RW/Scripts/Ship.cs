@@ -37,9 +37,12 @@ public class Ship : MonoBehaviour
     public bool isDead = false;
     public float speed = 1;
     public bool canShoot = true;
+    public bool reloading = false;
+    public int shotsFired = 0;
+    public int laserLimit = 10;
 
     [SerializeField]
-    private  MeshRenderer mesh;
+    private MeshRenderer mesh;
     [SerializeField]
     private GameObject explosion;
     [SerializeField]
@@ -57,9 +60,10 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space) && canShoot)
+        if (Input.GetKey(KeyCode.Space) && canShoot && !reloading)
         {
             ShootLaser();
+            print("fire key pressed");
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -77,6 +81,10 @@ public class Ship : MonoBehaviour
     {
         StartCoroutine("Shoot");
     }
+    public void ReloadLaser()
+    {
+        StartCoroutine("Reload");
+    }
 
     IEnumerator Shoot()
     {
@@ -84,7 +92,23 @@ public class Ship : MonoBehaviour
         GameObject laserShot = SpawnLaser();
         laserShot.transform.position = shotSpawn.position;
         yield return new WaitForSeconds(0.4f);
+        shotsFired++;
+        if (shotsFired < laserLimit)
+        {
+            canShoot = true;
+        }
+        else
+        {
+            reloading = true;
+            ReloadLaser();
+        }
+    }
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(2.0f);
+        reloading = false;
         canShoot = true;
+        shotsFired = 0;
     }
 
     public GameObject SpawnLaser()
@@ -108,7 +132,7 @@ public class Ship : MonoBehaviour
         transform.Translate(-Vector3.right * Time.deltaTime * speed);
         if (transform.position.x > maxRight)
         {
-             transform.position = new Vector3(maxRight, -3.22f, 0);
+            transform.position = new Vector3(maxRight, -3.22f, 0);
         }
     }
 
