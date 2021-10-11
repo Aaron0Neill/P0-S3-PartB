@@ -58,4 +58,17 @@ public class LaserTest
 
         Assert.Greater(spawner.gameObject.transform.childCount, 0);
     }
+
+    [UnityTest]
+    public IEnumerator DaisyChainTest()
+    {
+        ShrapnelSpawner s = game.GetShrapnelSpawner();
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        asteroid.transform.position = Vector3.zero;
+        s.SpawnShrapnel(Vector3.zero);
+        Assert.AreEqual(s.transform.childCount, 1);
+
+        yield return new WaitForSeconds(0.2f);
+        Assert.AreEqual(s.transform.childCount, 0);
+    }
 }
