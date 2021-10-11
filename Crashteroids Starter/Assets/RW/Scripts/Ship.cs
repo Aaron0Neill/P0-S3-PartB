@@ -50,6 +50,11 @@ public class Ship : MonoBehaviour
     private float maxLeft = -8;
     private float maxRight = 8;
 
+    private float zero = 0.0f;
+    private float timeRemaining = 1.0f; // 1 Second
+    private float shootTime;
+    private bool chargeUp = false;
+
     private void Update()
     {
         if (isDead)
@@ -57,9 +62,28 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space) && canShoot)
+        if(Input.GetKey(KeyCode.Space) && canShoot)
         {
-            ShootLaser();
+            if (!chargeUp)
+            {
+                ShootLaser();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            shootTime = Time.time;
+            chargeUp = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if((shootTime + timeRemaining) <= Time.time)
+            {
+                Debug.Log("Triple Shot");
+                TripleShootLaser();
+            }
+                chargeUp = false;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -70,6 +94,24 @@ public class Ship : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             MoveRight();
+        }
+    }
+
+    public void TripleShootLaser()
+    {
+        StartCoroutine("TripleShoot");
+    }
+
+    IEnumerator TripleShoot()
+    {
+        int counter = 0; // Bullet Counter
+
+        while (counter < 3)
+        {
+            GameObject laserShot = SpawnLaser();
+            laserShot.transform.position = shotSpawn.position;
+            yield return new WaitForSeconds(0.2f);
+            counter++;
         }
     }
 
