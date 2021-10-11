@@ -108,10 +108,17 @@ public class Ship : MonoBehaviour
 
         while (counter < 3)
         {
+            canShoot = false;
             GameObject laserShot = SpawnLaser();
             laserShot.transform.position = shotSpawn.position;
             yield return new WaitForSeconds(0.2f);
             counter++;
+
+            if(counter > 2)
+            {
+                yield return new WaitForSeconds(3.0f);
+                canShoot = true;
+            }
         }
     }
 

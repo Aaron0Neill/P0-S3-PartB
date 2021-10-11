@@ -22,4 +22,22 @@ public class ShipTest
     {
         Object.Destroy(game.gameObject);
     }
+
+    [UnityTest]
+    public IEnumerator CooldownTest()
+    {
+        Ship ship = game.GetShip().GetComponent<Ship>();
+        ship.TripleShootLaser();
+        yield return new WaitForSeconds(1.0f);
+        Assert.False(ship.canShoot);
+    }
+
+    [UnityTest]
+    public IEnumerator TimerResetTest()
+    {
+        Ship ship = game.GetShip().GetComponent<Ship>();
+        ship.TripleShootLaser();
+        yield return new WaitForSeconds(4.0f);
+        Assert.True(ship.canShoot);
+    }
 }
